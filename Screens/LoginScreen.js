@@ -1,13 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import { Button, Input, Image } from 'react-native-elements';
+import { Button, Image, Input } from 'react-native-elements';
+import { useAuth } from '../context/useAuthContext';
+import loginAPI from '../helpers/APICalls/login';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { updateLoginContext } = useAuth();
 
-  const handleSignIn = () => {};
+  const handleSignIn = () => {
+    loginAPI(email, password).then((data) => {
+      if (data.success) {
+        console.log('logged In!');
+        updateLoginContext(data.success);
+      }
+    });
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -23,14 +33,13 @@ const LoginScreen = ({ navigation }) => {
         <Input
           placeholder="Email"
           // autoFocus
-          type="email"
+          autoCapitalize="none"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <Input
           placeholder="Password"
           secureTextEntry
-          type="password"
           value={password}
           onChangeText={(text) => setPassword(text)}
         />

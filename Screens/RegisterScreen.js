@@ -2,14 +2,25 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
+import register from '../helpers/APICalls/register';
+import { useAuth } from '../context/useAuthContext';
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const { updateLoginContext } = useAuth();
 
-  const handleRegister = () => {};
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    register(name, email, password).then((data) => {
+      if (data.success) {
+        updateLoginContext(data.success);
+      }
+    });
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -31,6 +42,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <Input
           placeholder="Email"
+          autoCapitalize="none"
           type="email"
           value={email}
           onChangeText={(text) => setEmail(text)}

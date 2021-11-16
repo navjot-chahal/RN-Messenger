@@ -3,7 +3,10 @@ const loginWithCookies = async () => {
     method: 'GET',
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/auth/user`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/auth/user`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

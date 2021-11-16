@@ -5,7 +5,10 @@ const loginAPI = async (email, password) => {
     body: JSON.stringify({ email, password }),
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/auth/login`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/auth/login`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

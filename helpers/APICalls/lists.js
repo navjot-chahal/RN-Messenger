@@ -4,7 +4,10 @@ export const getLists = async () => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/list/getAll`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/list/getAll`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
@@ -18,7 +21,10 @@ export const postList = async (listName) => {
     body: JSON.stringify({ listName }),
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/list/add`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/list/add`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
@@ -32,7 +38,10 @@ export const deleteList = async (listId) => {
     body: JSON.stringify({ listId }),
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/list/remove`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/list/remove`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

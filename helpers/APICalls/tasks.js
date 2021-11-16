@@ -4,7 +4,10 @@ export const getTasks = async (listId) => {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`http://localhost:3001/task/${listId}`, fetchOptions)
+  return await fetch(
+    `https://rn-shopping-list.herokuapp.com/task/${listId}`,
+    fetchOptions
+  )
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

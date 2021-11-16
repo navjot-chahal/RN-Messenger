@@ -6,7 +6,6 @@ import React, {
   useCallback,
 } from 'react';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
-import logoutAPI from '../helpers/APICalls/logout';
 const RCTNetworking = require('react-native/Libraries/Network/RCTNetworking');
 
 export const AuthContext = createContext({
@@ -25,7 +24,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
-    await logoutAPI();
     RCTNetworking.clearCookies(() => {});
     setLoggedInUser(null);
   }, []);

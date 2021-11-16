@@ -1,4 +1,5 @@
 const List = require('../models/List');
+const Task = require('../models/Task');
 const asyncHandler = require('express-async-handler');
 
 // @route GET /list/getAll
@@ -14,7 +15,7 @@ exports.getAllLists = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @route POST /users/isSitter/
+// @route POST /list/add
 // @desc Add a new list for the user
 // @access Private
 exports.postList = asyncHandler(async (req, res, next) => {
@@ -37,5 +38,26 @@ exports.postList = asyncHandler(async (req, res, next) => {
     success: {
       newList: list,
     },
+  });
+});
+
+// @route POST /list/remove
+// @desc Remove an existing list and all of its tasks.
+// @access Private
+exports.deleteList = asyncHandler(async (req, res, next) => {
+  const { listId } = req.body;
+
+  if (!listId) {
+    res
+      .status(400)
+      .json({ error: { message: 'Name for list must be provided' } });
+    return;
+  }
+
+  await List.deleteOne({ _id: listId });
+  await Task.deleteMany({ listId });
+
+  res.status(200).json({
+    success: true,
   });
 });

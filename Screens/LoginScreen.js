@@ -7,14 +7,16 @@ import loginAPI from '../helpers/APICalls/login';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const { updateLoginContext } = useAuth();
 
   const handleSignIn = () => {
     loginAPI(email, password).then((data) => {
       if (data.success) {
-        console.log('logged In!');
         updateLoginContext(data.success);
+      } else {
+        setError('Wrong Email or Password!');
       }
     });
   };
@@ -23,10 +25,8 @@ const LoginScreen = ({ navigation }) => {
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <StatusBar style="light" />
       <Image
-        source={{
-          uri: 'https://blog.mozilla.org/internetcitizen/files/2018/08/signal-logo.png',
-        }}
-        style={{ width: 200, height: 200 }}
+        source={require('../assets/shopping-list.webp')}
+        style={styles.image}
       />
 
       <View style={styles.inputContainer}>
@@ -44,7 +44,7 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
       </View>
-
+      <Text style={styles.error}>{error}</Text>
       <Button
         containerStyle={styles.button}
         onPress={handleSignIn}
@@ -71,11 +71,15 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
+  image: { width: 200, height: 200, borderRadius: 20 },
   inputContainer: {
     width: 300,
   },
   button: {
     width: 200,
     marginTop: 10,
+  },
+  error: {
+    color: 'red',
   },
 });

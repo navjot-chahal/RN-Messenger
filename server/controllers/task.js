@@ -39,3 +39,45 @@ exports.postTask = asyncHandler(async (req, res, next) => {
     },
   });
 });
+
+// @route POST /task/remove
+// @desc Deletes an exsiting task for a user
+// @access Private
+exports.deleteTask = asyncHandler(async (req, res, next) => {
+  const { taskId } = req.body;
+
+  const task = await Task.findById(taskId);
+
+  if (!task) {
+    res.status(400).json({ error: { message: 'Task not found!' } });
+    return;
+  }
+
+  await Task.deleteOne({ _id: taskId });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// @route PATCH /task/toggle
+// @desc Update the completed tag of previous task
+// @access Private
+exports.toggleTask = asyncHandler(async (req, res, next) => {
+  const { taskId } = req.body;
+
+  const task = await Task.findById(taskId);
+
+  if (!task) {
+    res.status(400).json({ error: { message: 'Task not found!' } });
+    return;
+  }
+
+  task.completed = !task.completed;
+
+  await task.save();
+
+  res.status(200).json({
+    success: { task },
+  });
+});

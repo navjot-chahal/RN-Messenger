@@ -2,6 +2,8 @@
   "expo": {
     "name": "Shopping List App",
     "slug": "RN-Shopping-List",
+    "privacy": "public",
+    "description": "A simple MERN stack based shopping list app!",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +17,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.navjotchahal.RN-Shopping-List"
     },
     "android": {
       "adaptiveIcon": {

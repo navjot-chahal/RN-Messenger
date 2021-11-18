@@ -1,3 +1,5 @@
+import serverAddress from './serverAddress';
+
 const loginAPI = async (email, password) => {
   const fetchOptions = {
     method: 'POST',
@@ -5,10 +7,7 @@ const loginAPI = async (email, password) => {
     body: JSON.stringify({ email, password }),
     credentials: 'include',
   };
-  return await fetch(
-    `https://rn-shopping-list.herokuapp.com/auth/login`,
-    fetchOptions
-  )
+  return await fetch(`${serverAddress}/auth/login`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

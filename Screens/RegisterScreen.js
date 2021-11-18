@@ -9,7 +9,6 @@ const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
   const { updateLoginContext } = useAuth();
 
   const handleRegister = (e) => {
@@ -53,13 +52,6 @@ const RegisterScreen = ({ navigation }) => {
           value={password}
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
-        />
-        <Input
-          placeholder="Profile Picture URL (oprtional)"
-          type="text"
-          value={imageUrl}
-          onChangeText={(text) => setImageUrl(text)}
-          onSubmitEditing={handleRegister}
         />
       </View>
 

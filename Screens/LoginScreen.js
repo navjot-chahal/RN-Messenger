@@ -32,7 +32,6 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Input
           placeholder="Email"
-          // autoFocus
           autoCapitalize="none"
           value={email}
           onChangeText={(text) => setEmail(text)}
@@ -55,6 +54,16 @@ const LoginScreen = ({ navigation }) => {
         containerStyle={styles.button}
         type="outline"
         title="Register"
+      />
+      <Button
+        onPress={() => {
+          setEmail('demo@demo.com');
+          setPassword('testtest');
+        }}
+        style={{ marginTop: 50 }}
+        containerStyle={styles.button}
+        type="solid"
+        title="Demo Login"
       />
       <View style={{ height: 100 }} />
     </KeyboardAvoidingView>
